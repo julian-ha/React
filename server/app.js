@@ -18,15 +18,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+const projectpath = path.join(__dirname, '..');
+console.log(projectpath);
+app.use(express.static('../client/build'));
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
-const projectpath = path.join(__dirname, '..');
-console.log(projectpath);
+
+
+
+
+
 // Serve the static files from the React app
-app.use(express.static(path.join(projectpath, 'client/build')));
+app.use(express.static(path.join(projectpath, '/client/build')));
 
 // An api endpoint that returns a short list of items
 app.get('/api/getList', (req,res) => {
@@ -39,6 +46,12 @@ app.get('/api/getList', (req,res) => {
 app.get('*', (req,res) =>{
     res.sendFile(path.join(projectpath + '/client/build/index.html'));
 });
+
+
+
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
